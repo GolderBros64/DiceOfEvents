@@ -149,7 +149,19 @@ function before_phys_step()
                 and m.action ~= ACT_FLYING_TRIPLE_JUMP
                 and m.action ~= ACT_SHOT_FROM_CANNON
                 and m.action ~= ACT_LAVA_BOOST then
-                    m.vel.y = m.vel.y * 1.05
+                    m.vel.y = m.vel.y * 1.03
+                    if m.action ~= ACT_SIDE_FLIP or m.action ~= ACT_TRIPLE_JUMP or m.action ~= ACT_SPECIAL_TRIPLE_JUMP then
+                        if m.vel.y > 75 then
+                            m.controller.buttonPressed = m.controller.buttonPressed & ~A_BUTTON
+                            m.vel.y = -1
+                        end
+                    else
+                        if m.vel.y > 45 then
+                            m.controller.buttonPressed = m.controller.buttonPressed & ~A_BUTTON
+                            m.vel.y = -1
+                        end
+                    end
+
                 end
             else
                 if m.action == ACT_GROUND_POUND then
@@ -162,6 +174,7 @@ function before_phys_step()
     end
 
 end
+
 
 --- @param m MarioState
 function before_mario_update(m)
