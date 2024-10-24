@@ -526,10 +526,10 @@ end
 -- HOOKS --
 -----------
 
-hook_chat_command("dbg", "[Val|off]", dbg_cmd)
+--hook_chat_command("dbg", "[Val|off]", dbg_cmd)
 hook_chat_command("auto", "[On|Off]Rolls the Dice Automatically", auto_cmd)
-hook_chat_command("dice", "[val] Forces a specific event", frdice_cmd)
-hook_chat_command("cd", "[Num] Sets the Cooldown for the Dice \n(put in seconds, 0 = 1)", cd_cmd)
+--hook_chat_command("dice", "[val] Forces a specific event", frdice_cmd)
+--hook_chat_command("cd", "[Num] Sets the Cooldown for the Dice \n(put in seconds, 0 = 1)", cd_cmd)
 hook_chat_command("save", "Triggers the Save Early", save_cmd)
 hook_chat_command("stats", "See your Stats 'WIP: See everyone's Stats in your lobby'.", stats_cmd)
 hook_event(HOOK_BEFORE_MARIO_UPDATE, before_mario_update)
