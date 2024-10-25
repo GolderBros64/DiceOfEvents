@@ -1,5 +1,5 @@
 -- Chat Commands
-
+-- V1.1
 --[[function dbg_cmd(msg)
     if not network_is_server() then
         djui_chat_message_create("You must be a Moderator to use this command!")
