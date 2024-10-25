@@ -7,6 +7,7 @@ Betatesters: Polduduc(Marioooooooooo(NEW_PC) on SM64dxCOOP)
 This is a Mod i've been working on(and the first one i'm uploading) for SM64DXCoop.
 As of V1.0 There are 21 Possible Dice Rolls, All of them do Something either Helpful or Harmful.
 Some are More Complex than Others, even going up to lasting until you get a star.
+As of V1.1 MarioHunt is supported!(wich removes/edits some events)
 
 ### How To Play
 D-Pad Down to Roll The Dice
