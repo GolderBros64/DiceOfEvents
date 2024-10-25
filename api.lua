@@ -1,0 +1,1 @@
+doeAct = true -- to say that DiceOfEvents is Activated

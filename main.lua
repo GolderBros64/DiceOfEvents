@@ -1,4 +1,4 @@
--- name: \\#fcba03\\Dice \\#ffffff\\of \\#fcba03\\Events \\#8a8a8a\\(v1.0)
+-- name: \\#fcba03\\Dice \\#ffffff\\of \\#fcba03\\Events \\#8a8a8a\\(v1.1)
 -- incompatible:
 -- description: By Golderbros64 \\#545454\\(\\#fcba03\\@YTGolder\\#ffffff\\ On YT!\\#545454\\)\n\n\n Beta Testers: Pol
 -- deluxe: true
@@ -6,9 +6,12 @@
 GST = gGlobalSyncTable
 GPT = gPlayerSyncTable
 
+-- check api.lua for things
+
 -- Vars
 dicerolled = tonumber(mod_storage_load("dicerolled")) or 0
 coinsgot = tonumber(mod_storage_load("coins")) or 0
+mhwins = tonumber(mod_storage_load("mhwin")) or 0
 
 rng = 0
 autodice = tonumber(mod_storage_load("autodice")) or 0
@@ -54,6 +57,8 @@ allergytmr = 0
 allergysaid = 1
 savetmr = 1
 loc = LEVEL_BOB
+mhdec = 0
+achaltmr = 0 -- 150000 5 minutes
 
 --Main Functions
 --- @param m MarioState
@@ -175,7 +180,6 @@ function before_phys_step()
 
 end
 
-
 --- @param m MarioState
 function before_mario_update(m)
    if zbutton == 0 then
@@ -185,6 +189,7 @@ function before_mario_update(m)
    if abutton == 0 or achal == 1 and not(gMarioStates[0].action == ACT_IN_CANNON) then
     m.controller.buttonPressed = m.controller.buttonPressed & ~A_BUTTON
     m.controller.buttonDown = m.controller.buttonDown & ~A_BUTTON
+
    end
    if bbutton == 0 then
     m.controller.buttonPressed = m.controller.buttonPressed & ~B_BUTTON
@@ -200,25 +205,43 @@ end
 
 --Dependent Functions
 
+
 --- @param m MarioState
 function mario_update(m)
+    if mhExists == true then
+        autodice = 1
+    end
+
+    if mhExists == true then
+        if mhdec == 0 then
+            djui_chat_message_create("!\\#00ffff\\Mario\\#ff5a5a\\Hu\\\\nt\\#dcdcdc\\\\#ffffff\\! Detected")
+            mhdec = 1
+        end
+    end
+
+    if achaltmr ~= 0 then
+        achaltmr = achaltmr - 1
+        if achaltmr == 0 then
+            achal = 0
+        end
+    end
 
     button_func()
     if achal == 1 then
         achal_func(gMarioStates[0])
     end
     if (gMarioStates[0].controller.buttonPressed == D_JPAD or autodice == 1) and timer == 0 and gMarioStates[0].health > 0 then
-        if gMarioStates[0].action ~= ACT_IN_CANNON then
-            done = 0
-            roll_dice(gMarioStates[0], 0, 0)
-            txtsent = 0
-            cantsaid = 0
-        else
-            cantsaid = 0
-            if not autodice == 1 then
-                djui_chat_message_create("\\#d62727\\You Can't Roll The \\#bf8d04\\Dice\\#d62727\\ inside Cannons!")
+            if gMarioStates[0].action ~= ACT_IN_CANNON then
+                done = 0
+                roll_dice(gMarioStates[0], 0, 0)
+                txtsent = 0
+                cantsaid = 0
+            else
+                cantsaid = 0
+                if not autodice == 1 then
+                    djui_chat_message_create("\\#d62727\\You Can't Roll The \\#bf8d04\\Dice\\#d62727\\ inside Cannons!")
+                end
             end
-        end
     elseif gMarioStates[0].controller.buttonPressed == D_JPAD and timer > 0 and cantsaid == 0 then
         cantsaid = 1
         djui_chat_message_create("\\#d62727\\You Can't Roll The \\#bf8d04\\Dice\\#d62727\\!")
@@ -524,11 +547,24 @@ function special_moves(m)
 
 end
 
+function update()
+if mhExists then
+    if mhState == 3 then
+        if mhApi.getTeam == 1 then
+            mhwins = mhwins + 1
+        end
+    end
+end
+
+
+end
+
 
 function save_func()
     mod_storage_save("autodice", tostring(autodice))
     mod_storage_save("dicerolled", tostring(dicerolled))
     mod_storage_save("coins", tostring(coinsgot))
+    mod_storage_save("mhwin", tostring(mhwins))
 
 
 
@@ -544,9 +580,10 @@ hook_chat_command("auto", "[On|Off]Rolls the Dice Automatically", auto_cmd)
 --hook_chat_command("dice", "[val] Forces a specific event", frdice_cmd)
 --hook_chat_command("cd", "[Num] Sets the Cooldown for the Dice \n(put in seconds, 0 = 1)", cd_cmd)
 hook_chat_command("save", "Triggers the Save Early", save_cmd)
-hook_chat_command("stats", "See your Stats 'WIP: See everyone's Stats in your lobby'.", stats_cmd)
+hook_chat_command("statsdc", "See your Stats 'WIP: See everyone's Stats in your lobby'.", stats_cmd)
 hook_event(HOOK_BEFORE_MARIO_UPDATE, before_mario_update)
 hook_event(HOOK_ON_HUD_RENDER, on_hud_render)
 hook_event(HOOK_MARIO_UPDATE, mario_update)
 hook_event(HOOK_ON_SET_MARIO_ACTION, on_set_mario_action)
 hook_event(HOOK_BEFORE_PHYS_STEP, before_phys_step)
+hook_event(HOOK_UPDATE, update)
