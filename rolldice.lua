@@ -208,7 +208,7 @@ function roll_dice(m, frc, val)
             achaltmr = 0
         end
     else
-        roll_dice(gMarioStates[0], 1, 3)
+        roll_dice(gMarioStates[0], 0, 0)
     end
     elseif rng == 18 then
         m.squishTimer = 350
