@@ -18,5 +18,5 @@ While in a (as i think) Very Early State. there is a Stat System, wich tracks: T
 
 ### Contributing
 I Higly Would Like Some Ideas!
-Also if you find any Bugs, Report them in [Issues](https://github.com/GolderBros64/DiceOfEvents/issues). It would be Really Appreciated
+Also if you find any Bugs, Report them in [Issues](https://github.com/GolderBros64/DiceOfEvents/issues). It would be Really Appreciated.
 If you plan to make a custom version of this you can. But i must be credited and i can use code from your version and credit you.
