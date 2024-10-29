@@ -19,4 +19,5 @@ While in a (as i think) Very Early State. there is a Stat System, wich tracks: T
 ### Contributing
 I Higly Would Like Some Ideas!
 Also if you find any Bugs, Report them in [Issues](https://github.com/GolderBros64/DiceOfEvents/issues). It would be Really Appreciated.
-If you plan to make a custom version of this you can. But i must be credited and i can use code from your version and credit you.
+If you plan to make a custom version of this you can. But i must be credited and i can use code from your version and credit you.                                                            
+Also if you want me to support a specific Gamemode, feel free to ask. also check the Plans file to see what im planning to do/support.
